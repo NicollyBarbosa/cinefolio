@@ -5,7 +5,7 @@ import { TrendingUp, Smartphone, Scissors } from 'lucide-react';
 
 export const About: React.FC = () => {
   // Gerencia a fonte da imagem via estado para garantir re-renderização correta em caso de erro
-  const [imgSrc, setImgSrc] = useState('nicolly.jpg');
+  const [imgSrc, setImgSrc] = useState('/profile.jpg');
   const [hasError, setHasError] = useState(false);
 
   const handleImageError = () => {
@@ -23,7 +23,7 @@ export const About: React.FC = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
-          
+
           {/* Text Content */}
           <div className="lg:w-1/2 order-2 lg:order-1">
             <FadeIn>
@@ -32,11 +32,11 @@ export const About: React.FC = () => {
               </h2>
               <div className="w-20 h-1 bg-red-600 mb-8"></div>
               <p className="text-gray-400 leading-relaxed mb-6 font-light text-lg">
-                Eu me chamo <strong>Nicolly Marios</strong>. Sou filmmaker e editora em formação. 
+                Eu me chamo <strong>Nicolly Marios</strong>. Sou filmmaker e editora em formação.
                 Meu foco é a produção audiovisual ágil e moderna, utilizando o celular como ferramenta principal de criação e o CapCut para edições dinâmicas.
               </p>
               <p className="text-gray-400 leading-relaxed mb-10 font-light text-lg">
-                Meu diferencial vai além do vídeo: atuo na <strong>gestão completa de redes sociais</strong>, cuidando do planejamento, execução e otimização. 
+                Meu diferencial vai além do vídeo: atuo na <strong>gestão completa de redes sociais</strong>, cuidando do planejamento, execução e otimização.
                 Meu objetivo é unir criatividade, direção, edição e estratégia para entregar conteúdo que não só engaja, mas traz resultados.
               </p>
 
@@ -64,18 +64,18 @@ export const About: React.FC = () => {
           <div className="lg:w-1/2 order-1 lg:order-2 w-full">
             <FadeIn delay={200}>
               <div className="relative w-full h-[600px] bg-zinc-900 rounded-sm overflow-hidden shadow-2xl border border-white/5">
-                
+
                 {/* Elemento Decorativo de Borda */}
                 <div className="absolute top-4 right-4 w-24 h-24 border-t border-r border-white/20 z-20"></div>
                 <div className="absolute bottom-4 left-4 w-24 h-24 border-b border-l border-white/20 z-20"></div>
 
-                <img 
+                <img
                   src={imgSrc}
                   onError={handleImageError}
-                  alt="Nicolly Marios Filmmaker" 
+                  alt="Nicolly Marios Filmmaker"
                   className="w-full h-full object-cover relative z-10"
                 />
-                
+
                 {/* Overlay forte para garantir leitura do texto */}
                 <div className="absolute bottom-0 left-0 p-10 z-20 bg-gradient-to-t from-black via-black/80 to-transparent w-full">
                   <p className="text-white font-cinzel text-2xl drop-shadow-md">Nicolly Marios</p>
