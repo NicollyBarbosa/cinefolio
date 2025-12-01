@@ -24,8 +24,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# Video files
-*.mp4
-*.mov
-*.avi
-*.webm
+# Video files (hosted on Cloudflare R2)
+public/*.mp4
+public/*.mov
+public/*.avi
