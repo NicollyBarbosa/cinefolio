@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SectionId } from '../types';
 import { FadeIn } from './ui/FadeIn';
 import { TrendingUp, Smartphone, Scissors } from 'lucide-react';
 
 export const About: React.FC = () => {
+  // Gerencia a fonte da imagem via estado para garantir re-renderização correta em caso de erro
+  const [imgSrc, setImgSrc] = useState('nicolly.jpg');
+  const [hasError, setHasError] = useState(false);
+
+  const handleImageError = () => {
+    if (!hasError) {
+      setHasError(true);
+      // Fallback para imagem profissional caso o arquivo local não seja encontrado
+      setImgSrc('https://images.unsplash.com/photo-1525268323814-789a273b3780?q=80&w=1000&auto=format&fit=crop');
+    }
+  };
+
   return (
     <section id={SectionId.ABOUT} className="py-24 bg-[#050505] relative overflow-hidden scroll-mt-24">
       {/* Decorative element */}
@@ -49,30 +61,25 @@ export const About: React.FC = () => {
           </div>
 
           {/* Image Content */}
-          <div className="lg:w-1/2 order-1 lg:order-2">
+          <div className="lg:w-1/2 order-1 lg:order-2 w-full">
             <FadeIn delay={200}>
-              <div className="relative">
-                <div className="absolute -inset-4 border border-white/10 z-0 translate-x-4 translate-y-4"></div>
+              <div className="relative w-full h-[600px] bg-zinc-900 rounded-sm overflow-hidden shadow-2xl border border-white/5">
                 
-                {/* 
-                   ATENÇÃO PARA A IMAGEM:
-                   O código abaixo tenta carregar "nicolly.png" da pasta pública.
-                   Se não encontrar, ele usa a imagem de exemplo do Unsplash.
-                   Para usar sua foto: Salve seu arquivo como "nicolly.png" na pasta public.
-                */}
+                {/* Elemento Decorativo de Borda */}
+                <div className="absolute top-4 right-4 w-24 h-24 border-t border-r border-white/20 z-20"></div>
+                <div className="absolute bottom-4 left-4 w-24 h-24 border-b border-l border-white/20 z-20"></div>
+
                 <img 
-                  src="/nicolly.png" 
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1525268323814-789a273b3780?q=80&w=1000&auto=format&fit=crop";
-                    e.currentTarget.onerror = null; // Previne loop infinito
-                  }}
+                  src={imgSrc}
+                  onError={handleImageError}
                   alt="Nicolly Marios Filmmaker" 
-                  className="relative z-10 w-full h-[600px] object-cover filter brightness-90 contrast-110"
+                  className="w-full h-full object-cover relative z-10"
                 />
                 
-                <div className="absolute bottom-0 left-0 p-8 z-20 bg-gradient-to-t from-black to-transparent w-full">
-                  <p className="text-white font-cinzel text-xl">Nicolly Marios</p>
-                  <p className="text-red-500 text-xs uppercase tracking-widest">Filmmaker & Social Media</p>
+                {/* Overlay forte para garantir leitura do texto */}
+                <div className="absolute bottom-0 left-0 p-10 z-20 bg-gradient-to-t from-black via-black/80 to-transparent w-full">
+                  <p className="text-white font-cinzel text-2xl drop-shadow-md">Nicolly Marios</p>
+                  <p className="text-red-500 text-xs uppercase tracking-widest font-bold mt-2 drop-shadow-md">Filmmaker & Social Media</p>
                 </div>
               </div>
             </FadeIn>

@@ -3,6 +3,14 @@ import { Play } from 'lucide-react';
 import { SectionId } from '../types';
 
 export const Hero: React.FC = () => {
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id={SectionId.HERO} className="relative h-screen w-full overflow-hidden flex items-center justify-center">
       {/* Background with overlay */}
@@ -31,13 +39,15 @@ export const Hero: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             <a 
               href={`#${SectionId.WORK}`}
-              className="px-8 py-4 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors duration-300"
+              onClick={(e) => handleScrollTo(e, SectionId.WORK)}
+              className="px-8 py-4 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
             >
               Ver Portfólio
             </a>
             <a 
               href={`#${SectionId.CONTACT}`}
-              className="flex items-center gap-3 text-white text-xs uppercase tracking-widest hover:text-red-500 transition-colors duration-300 group"
+              onClick={(e) => handleScrollTo(e, SectionId.CONTACT)}
+              className="flex items-center gap-3 text-white text-xs uppercase tracking-widest hover:text-red-500 transition-colors duration-300 group cursor-pointer"
             >
               <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center group-hover:border-red-500 transition-colors">
                 <Play className="w-3 h-3 fill-current" />
