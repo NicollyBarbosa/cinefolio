@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import { SectionId } from '../types';
-import { Play, X } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { FadeIn } from './ui/FadeIn';
 
 interface Video {
   id: string;
-  title: string;
-  src: string;
+  url: string;
+  thumbnail: string;
 }
 
 const videos: Video[] = [
   {
-    id: 'video-falado',
-    title: 'Video Falado',
-    src: '/video falado.mp4'
+    id: '8Bn9P4pNXlo',
+    url: 'https://www.youtube.com/embed/8Bn9P4pNXlo?autoplay=1&vq=hd1080',
+    thumbnail: 'https://img.youtube.com/vi/8Bn9P4pNXlo/maxresdefault.jpg'
   },
   {
-    id: 'captacao-evento',
-    title: 'Captação de Evento',
-    src: '/captação de evento.mp4'
+    id: 'rFrXtW0MUwg',
+    url: 'https://www.youtube.com/embed/rFrXtW0MUwg?autoplay=1&vq=hd1080',
+    thumbnail: 'https://img.youtube.com/vi/rFrXtW0MUwg/maxresdefault.jpg'
   },
   {
-    id: 'feriado-vibes',
-    title: 'Feriado Vibes',
-    src: '/FERIADO VIBES.mp4'
+    id: 'j9ZE5GED-dg',
+    url: 'https://www.youtube.com/embed/j9ZE5GED-dg?autoplay=1&vq=hd1080',
+    thumbnail: 'https://img.youtube.com/vi/j9ZE5GED-dg/maxresdefault.jpg'
   }
 ];
 
@@ -33,12 +33,6 @@ export const Work: React.FC = () => {
   const handlePlay = (videoId: string) => {
     setPlayingVideo(videoId);
   };
-
-  const handleClose = () => {
-    setPlayingVideo(null);
-  };
-
-  const currentVideo = videos.find(v => v.id === playingVideo);
 
   return (
     <section id={SectionId.WORK} className="py-24 bg-black scroll-mt-24">
@@ -60,56 +54,41 @@ export const Work: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {videos.map((video, index) => (
             <FadeIn key={video.id} delay={index * 100}>
-              <div
-                className="relative aspect-video bg-zinc-900 overflow-hidden group cursor-pointer"
-                onClick={() => handlePlay(video.id)}
-              >
-                {/* Video preview (first frame) */}
-                <video
-                  src={video.src}
-                  className="w-full h-full object-cover"
-                  preload="metadata"
-                />
+              <div className="relative aspect-video bg-zinc-900 overflow-hidden group">
+                {playingVideo !== video.id ? (
+                  <div
+                    className="absolute inset-0 cursor-pointer"
+                    onClick={() => handlePlay(video.id)}
+                  >
+                    {/* Thumbnail */}
+                    <img
+                      src={video.thumbnail}
+                      alt={`Video ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-2xl">
-                    <Play className="w-6 h-6 text-white fill-white ml-1" />
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-2xl">
+                        <Play className="w-6 h-6 text-white fill-white ml-1" />
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <iframe
+                    className="w-full h-full"
+                    src={video.url}
+                    title={`YouTube video ${index + 1}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                )}
               </div>
             </FadeIn>
           ))}
         </div>
       </div>
-
-      {/* Modal Video Player */}
-      {playingVideo && currentVideo && (
-        <div
-          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={handleClose}
-        >
-          <button
-            className="absolute top-6 right-6 text-white hover:text-red-500 transition-colors z-10"
-            onClick={handleClose}
-          >
-            <X className="w-10 h-10" />
-          </button>
-
-          <div
-            className="relative max-w-7xl max-h-[90vh] w-full flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <video
-              className="max-w-full max-h-[90vh] w-auto h-auto"
-              src={currentVideo.src}
-              controls
-              autoPlay
-              controlsList="nodownload"
-            />
-          </div>
-        </div>
-      )}
     </section>
   );
 };
