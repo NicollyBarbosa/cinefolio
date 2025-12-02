@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SectionId } from '../types';
-import { Play } from 'lucide-react';
+import { Play, X } from 'lucide-react';
 import { FadeIn } from './ui/FadeIn';
 
 interface Video {
@@ -11,28 +11,24 @@ interface Video {
 
 const videos: Video[] = [
   {
-    id: '8Bn9P4pNXlo',
-    url: 'https://www.youtube.com/embed/8Bn9P4pNXlo?autoplay=1&vq=hd1080',
-    thumbnail: 'https://img.youtube.com/vi/8Bn9P4pNXlo/maxresdefault.jpg'
+    id: 'drive-1',
+    url: 'https://drive.google.com/file/d/1XhmW1m9Ox05P4AQJvFM6hW3NyFcXi_Cu/preview',
+    thumbnail: 'https://drive.google.com/thumbnail?authuser=0&sz=w3000&id=1XhmW1m9Ox05P4AQJvFM6hW3NyFcXi_Cu'
   },
   {
-    id: 'rFrXtW0MUwg',
-    url: 'https://www.youtube.com/embed/rFrXtW0MUwg?autoplay=1&vq=hd1080',
-    thumbnail: 'https://img.youtube.com/vi/rFrXtW0MUwg/maxresdefault.jpg'
+    id: 'drive-2',
+    url: 'https://drive.google.com/file/d/1LMr9AulMxEXNPEQZUjRhfxbp8QdEXdv7/preview',
+    thumbnail: 'https://drive.google.com/thumbnail?authuser=0&sz=w3000&id=1LMr9AulMxEXNPEQZUjRhfxbp8QdEXdv7'
   },
   {
-    id: 'j9ZE5GED-dg',
-    url: 'https://www.youtube.com/embed/j9ZE5GED-dg?autoplay=1&vq=hd1080',
-    thumbnail: 'https://img.youtube.com/vi/j9ZE5GED-dg/maxresdefault.jpg'
+    id: 'drive-3',
+    url: 'https://drive.google.com/file/d/1gTGISG5tmyiGcJbIOLU30oIblRT-G47c/preview',
+    thumbnail: 'https://drive.google.com/thumbnail?authuser=0&sz=w3000&id=1gTGISG5tmyiGcJbIOLU30oIblRT-G47c'
   }
 ];
 
 export const Work: React.FC = () => {
-  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
-
-  const handlePlay = (videoId: string) => {
-    setPlayingVideo(videoId);
-  };
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   return (
     <section id={SectionId.WORK} className="py-24 bg-black scroll-mt-24">
@@ -54,41 +50,57 @@ export const Work: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {videos.map((video, index) => (
             <FadeIn key={video.id} delay={index * 100}>
-              <div className="relative aspect-video bg-zinc-900 overflow-hidden group">
-                {playingVideo !== video.id ? (
-                  <div
-                    className="absolute inset-0 cursor-pointer"
-                    onClick={() => handlePlay(video.id)}
-                  >
-                    {/* Thumbnail */}
-                    <img
-                      src={video.thumbnail}
-                      alt={`Video ${index + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+              <div
+                className="relative aspect-video bg-zinc-900 overflow-hidden group cursor-pointer"
+                onClick={() => setSelectedVideo(video)}
+              >
+                {/* Thumbnail */}
+                <img
+                  src={video.thumbnail}
+                  alt={`Video ${index + 1}`}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
 
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-2xl">
-                        <Play className="w-6 h-6 text-white fill-white ml-1" />
-                      </div>
-                    </div>
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-2xl">
+                    <Play className="w-6 h-6 text-white fill-white ml-1" />
                   </div>
-                ) : (
-                  <iframe
-                    className="w-full h-full"
-                    src={video.url}
-                    title={`YouTube video ${index + 1}`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                )}
+                </div>
               </div>
             </FadeIn>
           ))}
         </div>
       </div>
+
+      {/* Video Modal */}
+      {selectedVideo && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedVideo(null)}
+        >
+          <button
+            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors"
+            onClick={() => setSelectedVideo(null)}
+          >
+            <X size={40} />
+          </button>
+
+          <div
+            className="w-full max-w-6xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl ring-1 ring-white/10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              className="w-full h-full"
+              src={selectedVideo.url}
+              title="Portfolio Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
