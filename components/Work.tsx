@@ -12,18 +12,18 @@ interface Video {
 const videos: Video[] = [
   {
     id: 'drive-1',
-    url: 'https://drive.google.com/file/d/1XhmW1m9Ox05P4AQJvFM6hW3NyFcXi_Cu/preview',
-    thumbnail: 'https://drive.google.com/thumbnail?authuser=0&sz=w3000&id=1XhmW1m9Ox05P4AQJvFM6hW3NyFcXi_Cu'
+    url: 'https://drive.google.com/file/d/1T8hRrhzjuzPMV46dDeFRPpZkhjIPH83X/preview',
+    thumbnail: 'https://drive.google.com/thumbnail?authuser=0&sz=w3000&id=1T8hRrhzjuzPMV46dDeFRPpZkhjIPH83X'
   },
   {
     id: 'drive-2',
-    url: 'https://drive.google.com/file/d/1LMr9AulMxEXNPEQZUjRhfxbp8QdEXdv7/preview',
-    thumbnail: 'https://drive.google.com/thumbnail?authuser=0&sz=w3000&id=1LMr9AulMxEXNPEQZUjRhfxbp8QdEXdv7'
+    url: 'https://drive.google.com/file/d/1i-PkmUrYWAJLfLsowEL5NMmX4DAFHq3i/preview',
+    thumbnail: 'https://drive.google.com/thumbnail?authuser=0&sz=w3000&id=1i-PkmUrYWAJLfLsowEL5NMmX4DAFHq3i'
   },
   {
     id: 'drive-3',
-    url: 'https://drive.google.com/file/d/1gTGISG5tmyiGcJbIOLU30oIblRT-G47c/preview',
-    thumbnail: 'https://drive.google.com/thumbnail?authuser=0&sz=w3000&id=1gTGISG5tmyiGcJbIOLU30oIblRT-G47c'
+    url: 'https://drive.google.com/file/d/1oCAF2JxwNMIaTCfG9MxHwvVgTZVkzcdP/preview',
+    thumbnail: 'https://drive.google.com/thumbnail?authuser=0&sz=w3000&id=1oCAF2JxwNMIaTCfG9MxHwvVgTZVkzcdP'
   }
 ];
 
